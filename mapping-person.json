@@ -1,0 +1,103 @@
+{
+  "mappings": {
+    "properties": {
+      "fulltext": {
+        "type": "text",
+        "analyzer": "whitespace"
+      },
+      "birth_year": {
+        "type": "integer"
+      },
+      "death_year": {
+        "type": "integer"
+      },
+      "editor_working_notes": {
+        "type": "text",
+        "copy_to": "fulltext"
+      },
+      "emlo_url": {
+        "type": "text"
+      },
+      "gender": {
+        "type": "text",
+        "copy_to": "fulltext",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "general_notes": {
+        "type": "text",
+        "copy_to": "fulltext"
+      },
+      "is_organisation": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "person_id": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "primary_name": {
+        "type": "text",
+        "copy_to": "fulltext",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "roles_titles": {
+        "type": "nested",
+        "properties": {
+          "title": {
+            "type": "text",
+            "copy_to": "fulltext",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "synonyms": {
+        "type": "nested",
+        "properties": {
+          "synonym": {
+            "type": "text",
+            "copy_to": "fulltext",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "uuid": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}

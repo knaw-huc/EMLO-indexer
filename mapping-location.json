@@ -1,0 +1,64 @@
+{
+  "mappings" : {
+    "properties" : {
+      "building" : {
+        "type" : "text"
+      },
+      "country" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "empire" : {
+        "type" : "text"
+      },
+      "name" : {
+        "type" : "text"
+      },
+      "place_id" : {
+        "type" : "text"
+      },
+      "primary_place_name" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "province" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "room" : {
+        "type" : "text"
+      },
+      "street_parish" : {
+        "type" : "text"
+      },
+      "synonyms" : {
+        "properties" : {
+          "synonym" : {
+            "type" : "text",
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
