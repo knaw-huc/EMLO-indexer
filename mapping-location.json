@@ -1,11 +1,17 @@
 {
   "mappings" : {
     "properties" : {
+      "fulltext": {
+        "type": "text",
+        "analyzer": "whitespace"
+      },
       "building" : {
-        "type" : "text"
+        "type" : "text",
+        "copy_to": "fulltext"
       },
       "country" : {
         "type" : "text",
+        "copy_to": "fulltext",
         "fields" : {
           "keyword" : {
             "type" : "keyword",
@@ -14,16 +20,25 @@
         }
       },
       "empire" : {
-        "type" : "text"
+        "type" : "text",
+        "copy_to": "fulltext"
       },
       "name" : {
-        "type" : "text"
+        "type" : "text",
+        "copy_to": "fulltext",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
       },
       "place_id" : {
         "type" : "text"
       },
       "primary_place_name" : {
         "type" : "text",
+        "copy_to": "fulltext",
         "fields" : {
           "keyword" : {
             "type" : "keyword",
@@ -33,6 +48,7 @@
       },
       "province" : {
         "type" : "text",
+        "copy_to": "fulltext",
         "fields" : {
           "keyword" : {
             "type" : "keyword",
@@ -41,15 +57,18 @@
         }
       },
       "room" : {
-        "type" : "text"
+        "type" : "text",
+        "copy_to": "fulltext"
       },
       "street_parish" : {
-        "type" : "text"
+        "type" : "text",
+        "copy_to": "fulltext"
       },
       "synonyms" : {
         "properties" : {
           "synonym" : {
             "type" : "text",
+            "copy_to": "fulltext",
             "fields" : {
               "keyword" : {
                 "type" : "keyword",

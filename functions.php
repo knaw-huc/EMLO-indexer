@@ -55,7 +55,7 @@ function indexPersonItems($count)
 {
     global $db;
 
-    put_mapping();
+    //put_mapping();
     $items = $db->get_persons($count);
     foreach ($items as $item) {
         $item = build_person_item($item);
@@ -75,6 +75,19 @@ function indexLocationItems($count)
     }
 }
 
+function indexLetterItems($count)
+{
+    global $db;
+
+    put_mapping();
+    $items = $db->get_letters($count);
+    foreach ($items as $item) {
+        $item = build_letter_item($item);
+        publish($item, INDEX_URL);
+    }
+}
+
+
 function build_person_item($emlo_item)
 {
     global $db;
@@ -86,7 +99,7 @@ function build_person_item($emlo_item)
     $item["synonyms"] = split_field($emlo_item["synonyms"], "synonym", ";");
     $item["roles_titles"] = split_field($emlo_item["roles_titles"], "title", ";");
     $item["gender"] = set_gender($emlo_item["gender"]);
-    $item["is_organisation"] = $emlo_item["is_organisation"];
+    $item["is_organisation"] = set_entity($emlo_item["is_organisation"]);
     $item["birth_year"] = $emlo_item["birth_year"];
     $item["death_year"] = $emlo_item["death_year"];
     $item["general_notes"] = $emlo_item["general_notes"];
@@ -98,27 +111,61 @@ function build_person_item($emlo_item)
     return $item;
 }
 
-function build_location_item($emlo_item) {
+function build_location_item($emlo_item)
+{
     global $db;
 
     $item = $emlo_item;
     $item["synonyms"] = split_field($emlo_item["synonyms"], "synonym", "\n");
     return $item;
-
 }
 
-function set_gender($str) {
+function build_letter_item($emlo_item)
+{
+    global $db;
+
+    $item = $emlo_item;
+    if ($item["origin_emlo_id"] !== "" && $item["origin_emlo_id"] !== null) {
+        $buffer = $db->get_letter_location(intval($item["origin_emlo_id"]));
+        $item["origin_place"] = $buffer["primary_place_name"];
+        $item["origin_province"] = $buffer["province"];
+        $item["origin_country"] = $buffer["country"];
+    }
+    if ($item["destination_emlo_id"] !== "" && $item["destination_emlo_id"] !== null) {
+        $buffer = $db->get_letter_location(intval($item["destination_emlo_id"]));
+        $item["destination_place"] = $buffer["primary_place_name"];
+        $item["destination_province"] = $buffer["province"];
+        $item["destination_country"] = $buffer["country"];
+    }
+    return $item;
+}
+
+function set_gender($str)
+{
     switch ($str) {
         case 'M':
             return 'Male';
         case 'F':
             return 'Female';
         default:
-            return "";
+            return "Unknown";
     }
 }
 
-function split_field($str, $fName, $char) {
+function set_entity($str)
+{
+    switch ($str) {
+        case 'Y':
+            return 'Organisation';
+        case 'N':
+            return 'Person';
+        default:
+            return "Unknown";
+    }
+}
+
+function split_field($str, $fName, $char)
+{
     $retList = array();
 
     if (trim($str) == "" || is_null($str)) {
