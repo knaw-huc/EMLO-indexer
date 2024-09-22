@@ -28,6 +28,9 @@ function put_mapping()
     $options = array('Content-type: application/json', 'Content-Length: ' . strlen($mapping));
     curl_setopt($ch, CURLOPT_HTTPHEADER, $options);
     curl_setopt($ch, CURLOPT_URL, MAPPING_URL);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_USERPWD, "elastic:ZB4kKNcAw3WQtn3nTx7wN9Z0DUEtAidd");
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $mapping);
@@ -43,6 +46,9 @@ function publish($passage, $url)
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $options);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_struc);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_USERPWD, "elastic:ZB4kKNcAw3WQtn3nTx7wN9Z0DUEtAidd");
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
     $response = curl_exec($ch);
